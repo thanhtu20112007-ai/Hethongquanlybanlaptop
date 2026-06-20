@@ -131,8 +131,8 @@ public class TrangChu extends JFrame {
         btnFilter.addActionListener(e -> popupFilter.show(btnFilter, 0, btnFilter.getHeight()));
         pnlBrands.add(btnFilter);
 
-        String[] brands = {"Dell", "HP", "MSI", "Asus", "Lenovo", "Acer", "Macbook", "Surface"};
-        for (String brand : brands) { JButton btnBrand = new JButton(brand.toUpperCase()); btnBrand.setFont(new Font("Arial", Font.BOLD, 13)); btnBrand.setBackground(Color.WHITE); btnBrand.setPreferredSize(new Dimension(100, 35)); btnBrand.addActionListener(e -> { thuongHieuDangLoc = brand; trangHienTai = 1; loadDuLieuTuSQL(); }); pnlBrands.add(btnBrand); }
+        String[] brands = {"Dell", "HP", "Asus", "Lenovo", "Acer", "Macbook"};
+        for (String brand : brands) { JButton btnBrand = new JButton(brand.toUpperCase()); btnBrand.setFont(new Font("Arial", Font.BOLD, 13)); btnBrand.setBackground(Color.WHITE); btnBrand.setPreferredSize(new Dimension(150, 35)); btnBrand.addActionListener(e -> { thuongHieuDangLoc = brand; trangHienTai = 1; loadDuLieuTuSQL(); }); pnlBrands.add(btnBrand); }
         pnlTopWrapper.add(pnlBrands); add(pnlTopWrapper, BorderLayout.NORTH);
 
         JPanel pnlBodyWrapper = new JPanel(new BorderLayout()); pnlBodyWrapper.setBackground(new Color(245, 246, 250));
@@ -185,7 +185,7 @@ public class TrangChu extends JFrame {
     public void xoaKhoiGioHang(String tenSP) { try (Connection conn = DatabaseConnection.getConnection()) { PreparedStatement ps = conn.prepareStatement("DELETE FROM GioHang WHERE TenSP = ? AND TaiKhoan = ?"); ps.setString(1, tenSP); ps.setString(2, taiKhoanHienTai); ps.executeUpdate(); loadGioHangTuSQL(); } catch (Exception e) {} }
     public void capNhatSoLuongGioHang(String tenSP, int slMoi) { try (Connection conn = DatabaseConnection.getConnection()) { PreparedStatement ps = conn.prepareStatement("UPDATE GioHang SET SoLuong = ? WHERE TenSP = ? AND TaiKhoan = ?"); ps.setInt(1, slMoi); ps.setString(2, tenSP); ps.setString(3, taiKhoanHienTai); ps.executeUpdate(); loadGioHangTuSQL(); } catch (Exception e) {} }
     public void lamSachGioHang() { try (Connection conn = DatabaseConnection.getConnection()) { PreparedStatement ps = conn.prepareStatement("DELETE FROM GioHang WHERE TaiKhoan = ?"); ps.setString(1, taiKhoanHienTai); ps.executeUpdate(); loadGioHangTuSQL(); } catch (Exception e) {} }
-    private void capNhatHienThiGioHang() { int MathS = 0; for (GioHangItem sp : gioHang) MathS += sp.soLuong; btnGioHang.setText("🛒 Giỏ hàng (" + MathS + ")"); }
+    private void capNhatHienThiGioHang() { int MathS = 0; for (GioHangItem sp : gioHang) MathS += sp.soLuong; btnGioHang.setText("Giỏ hàng (" + MathS + ")"); }
 
     public void loadDuLieuTuSQL() {
         pnlDanhSachSP.removeAll(); pnlDanhSachSP.setLayout(new GridLayout(0, 5, 15, 15));
